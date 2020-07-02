@@ -2,20 +2,26 @@
 /* PACKAGES                                                                                                      */
 /* ============================================================================================================= */
 mod commands;
+mod game;
 mod handler;
 mod shard;
 
+use commands::add_words::*;
 use commands::ping::*;
+use commands::show_words::*;
 use dotenv;
+use game::Game;
 use serenity::client::Client;
 use serenity::framework::standard::macros::group;
 use serenity::framework::standard::StandardFramework;
+use shard::ShardManagerContainer;
+use std::sync::Arc;
 
 /* ============================================================================================================= */
 /* STRUCTS                                                                                                       */
 /* ============================================================================================================= */
 #[group]
-#[commands(ping)]
+#[commands(ping, add_words, show_words)]
 struct General;
 
 /* ============================================================================================================= */
@@ -33,6 +39,11 @@ fn main() {
 
     client.with_framework(StandardFramework::new().configure(|c| c.prefix(";")).group(&GENERAL_GROUP));
 
+    {
+        let mut data = client.data.write();
+        data.insert::<ShardManagerContainer>(Arc::clone(&client.shard_manager));
+        data.insert::<Game>(vec![]);
+    }
     // Start a single shard, and start listening to events.
     if let Err(e) = client.start() {
         println!("Client error: {:?}", e);
