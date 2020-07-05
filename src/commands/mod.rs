@@ -1,3 +1,2 @@
-pub mod add_words;
+pub mod help;
 pub mod ping;
-pub mod show_words;

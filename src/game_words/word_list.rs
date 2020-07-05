@@ -6,8 +6,8 @@ use serenity::prelude::TypeMapKey;
 /* ============================================================================================================= */
 /* STRUCTS                                                                                                       */
 /* ============================================================================================================= */
-pub struct Game;
+pub struct WordList;
 
-impl TypeMapKey for Game {
+impl TypeMapKey for WordList {
     type Value = Vec<String>;
 }
