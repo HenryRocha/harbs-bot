@@ -9,6 +9,7 @@ use serenity::prelude::TypeMapKey;
 pub struct Game {
     pub players: Vec<String>,
     pub words: Vec<String>,
+    pub num_words: u8,
 }
 
 pub struct GameWords;

@@ -12,6 +12,7 @@ use commands::help::*;
 use commands::ping::*;
 
 use game_words::commands::add_words::*;
+use game_words::commands::set_number_words::*;
 use game_words::commands::show_words::*;
 
 use dotenv;
@@ -34,7 +35,7 @@ struct General;
 #[group]
 #[prefixes("words", "w")]
 #[description("Commands for the words game.")]
-#[commands(add_words, show_words)]
+#[commands(add_words, show_words, set_number_words)]
 struct GameWords;
 
 /* ============================================================================================================= */
@@ -71,6 +72,7 @@ fn main() {
         data.insert::<game_words::game::GameWords>(game_words::game::Game {
             players: vec![],
             words: vec![],
+            num_words: 0,
         });
     }
 
