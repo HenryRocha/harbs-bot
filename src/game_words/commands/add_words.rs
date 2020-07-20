@@ -1,7 +1,7 @@
 /* ============================================================================================================= */
 /* PACKAGES                                                                                                      */
 /* ============================================================================================================= */
-use crate::game_words::word_list::WordList;
+use crate::game_words::game::GameWords;
 use serenity::client::Context;
 use serenity::framework::standard::macros::command;
 use serenity::framework::standard::Args;
@@ -23,10 +23,10 @@ pub fn add_words(ctx: &mut Context, msg: &Message, mut args: Args) -> CommandRes
 
     let mut data = ctx.data.write();
 
-    match data.get_mut::<WordList>() {
-        Some(words) => {
+    match data.get_mut::<GameWords>() {
+        Some(game) => {
             for arg in args.iter::<String>() {
-                words.push(arg.unwrap());
+                game.words.push(arg.unwrap());
             }
         }
         None => {

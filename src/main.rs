@@ -13,7 +13,6 @@ use commands::ping::*;
 
 use game_words::commands::add_words::*;
 use game_words::commands::show_words::*;
-use game_words::word_list::WordList;
 
 use dotenv;
 
@@ -69,7 +68,10 @@ fn main() {
     {
         let mut data = client.data.write();
         data.insert::<ShardManagerContainer>(Arc::clone(&client.shard_manager));
-        data.insert::<WordList>(vec![]);
+        data.insert::<game_words::game::GameWords>(game_words::game::Game {
+            players: vec![],
+            words: vec![],
+        });
     }
 
     // Configures the client, allowing for options to mutate how the framework functions.
