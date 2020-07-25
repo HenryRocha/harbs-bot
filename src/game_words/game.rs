@@ -1,19 +1,18 @@
 /* ============================================================================================================= */
 /* PACKAGES                                                                                                      */
 /* ============================================================================================================= */
-use serenity::prelude::TypeMapKey;
 
 /* ============================================================================================================= */
 /* STRUCTS                                                                                                       */
 /* ============================================================================================================= */
 pub struct Game {
-    pub players: Vec<String>,
+    pub players: Vec<serenity::model::user::User>,
     pub words: Vec<String>,
     pub num_words: u8,
 }
 
 pub struct GameWords;
 
-impl TypeMapKey for GameWords {
+impl serenity::prelude::TypeMapKey for GameWords {
     type Value = Game;
 }

@@ -34,12 +34,18 @@ pub fn add_words(ctx: &mut Context, msg: &Message, mut args: Args) -> CommandRes
                 return Ok(());
             }
 
-            // Add each word to the words list.
-            for arg in args.iter::<String>() {
-                game.words.push(arg.unwrap());
-            }
+            // Add each word to the words list if the player is not in the player's list.
+            if !game.players.contains(&msg.author) {
+                for arg in args.iter::<String>() {
+                    game.words.push(arg.unwrap());
+                }
 
-            let _ = msg.reply(&ctx, "The words were added to the word list successfully!");
+                game.players.push(msg.author.clone());
+
+                let _ = msg.reply(&ctx, "The words were added to the word list successfully!");
+            } else {
+                let _ = msg.reply(&ctx, "You have already added words to the word list.");
+            }
         }
         None => {
             let _ = msg.reply(&ctx, "There was a problem getting the shard manager");
