@@ -38,6 +38,8 @@ pub fn add_words(ctx: &mut Context, msg: &Message, mut args: Args) -> CommandRes
             for arg in args.iter::<String>() {
                 game.words.push(arg.unwrap());
             }
+
+            let _ = msg.reply(&ctx, "The words were added to the word list successfully!");
         }
         None => {
             let _ = msg.reply(&ctx, "There was a problem getting the shard manager");
